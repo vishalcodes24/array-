@@ -1,0 +1,111 @@
+//3.Write functions to perform the following operations with two-dimensional arrays.
+i) Reading any two dimensional array elements.
+ii) Finding maximum and standard deviation of array elements.
+iii) Printing the transpose of a matrix
+
+
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+const int MAX_ROWS = 10;
+const int MAX_COLS = 10;
+
+// Function Prototypes
+void readArray(int arr[MAX_ROWS][MAX_COLS], int rows, int cols);
+int findMax(int arr[MAX_ROWS][MAX_COLS], int rows, int cols);
+double calculateStdDev(int arr[MAX_ROWS][MAX_COLS], int rows, int cols);
+void printTranspose(int arr[MAX_ROWS][MAX_COLS], int rows, int cols);
+
+int main() {
+    int rows, cols;
+
+    // Input: Read the dimensions of the array
+    cout << "Enter the number of rows (max " << MAX_ROWS << "): ";
+    cin >> rows;
+    cout << "Enter the number of columns (max " << MAX_COLS << "): ";
+    cin >> cols;
+
+    int array[MAX_ROWS][MAX_COLS];
+
+    // i) Reading any two-dimensional array elements.
+    cout << "Enter array elements:" << endl;
+    readArray(array, rows, cols);
+
+    // ii) Finding maximum and standard deviation of array elements.
+    int maxElement = findMax(array, rows, cols);
+    double stdDev = calculateStdDev(array, rows, cols);
+
+    cout << "Maximum element: " << maxElement << endl;
+    cout << "Standard Deviation: " << stdDev << endl;
+
+    // iii) Printing the transpose of a matrix
+    cout << "Transpose of the matrix:" << endl;
+    printTranspose(array, rows, cols);
+
+    return 0;
+}
+
+// Function Definitions
+
+// i) Reading any two-dimensional array elements.
+void readArray(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cout << "Enter element at position (" << i << ", " << j << "): ";
+            cin >> arr[i][j];
+        }
+    }
+}
+
+// ii) Finding maximum of array elements.
+int findMax(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
+    int maxElement = arr[0][0];
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (arr[i][j] > maxElement) {
+                maxElement = arr[i][j];
+            }
+        }
+    }
+
+    return maxElement;
+}
+
+// ii) Finding standard deviation of array elements.
+double calculateStdDev(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
+    double sum = 0.0;
+    double mean;
+    int count = 0;
+
+    // Calculate mean
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            sum += arr[i][j];
+            count++;
+        }
+    }
+    mean = sum / count;
+
+    // Calculate standard deviation
+    double sumSquaredDiff = 0.0;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            sumSquaredDiff += pow(arr[i][j] - mean, 2);
+        }
+    }
+
+    return sqrt(sumSquaredDiff / count);
+}
+
+// iii) Printing the transpose of a matrix
+void printTranspose(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
+    for (int j = 0; j < cols; ++j) {
+        for (int i = 0; i < rows; ++i) {
+            cout << setw(4) << arr[i][j];
+        }
+        cout << endl;
+    }
+}

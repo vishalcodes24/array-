@@ -1,0 +1,41 @@
+2. Currency notes are available in the following seven denominations: Rs. 1, Rs. 2, Rs. 5, Rs. 10, Rs. 20, Rs.50, and Rs. 100.
+You will first read an integer array (named purse [7]) of seven elements, where the array elements represents the number of notes of each denomination (in increasing order of denomination) available with you. You are also given an amount of money to be paid using these notes. The amount will be less than Rs. 1000. You have to pay the amount using minimum number of notes. Print the number of notes of each denomination which you will use to pay the amount. If the amount cannot be paid using the available notes, print “Failed to Pay”.
+sorce - code :
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int purse[7];
+
+    cout << "Enter the number of notes for each denomination (Rs. 1 to Rs. 100):" << endl;
+    for (int i = 0; i < 7; ++i) {
+        cout << "Enter the number of Rs. " << (i + 1) << " notes: ";
+        cin >> purse[i];
+    }
+
+    
+    int amount;
+    cout << "Enter the amount to be paid (less than Rs. 1000): ";
+    cin >> amount;
+
+    cout << "Minimum number of notes to pay Rs. " << amount << ":" << endl;
+
+    int totalNotes = 0;
+    for (int i = 6; i >= 0; --i) {
+        int notesUsed = min(amount / (i + 1), purse[i]);
+        amount -= notesUsed * (i + 1);
+        totalNotes += notesUsed;
+
+        if (notesUsed > 0) {
+            cout << "Rs. " << (i + 1) << " notes: " << notesUsed << endl;
+        }
+    }
+
+    
+    if (amount > 0) {
+        cout << "Failed to Pay" << endl;
+    }
+
+    return 0;
+}

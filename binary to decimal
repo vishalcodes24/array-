@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    char binary[8];
+
+    cout << "Enter an 8-bit binary number : ";
+    for (int i = 0; i < 8; ++i) {
+        cin >> binary[i];
+
+      
+        if (binary[i] != '0' && binary[i] != '1') {
+            cout << "Invalid input. Enter only '0's and '1's." << endl;
+            return 1;
+        }
+    }
+
+    
+    int decimal = 0;
+    for (int i = 7; i >= 0; --i) {
+        decimal += (binary[i] - '0') * pow(2, 7 - i);
+    }
+
+    
+    cout << "Decimal value: " << decimal << endl;
+
+    return 0;
+}
